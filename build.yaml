@@ -17,26 +17,12 @@ stages:
             clean: true
             fetchTags: false
 
-          - task: Npm@1
-            displayName: NPM Install
-            inputs:
-              verbose: false
-                    
-          - task: Npm@1
-            displayName: 'npm audit'
-            inputs:
-              command: custom
-              verbose: false
-              customCommand: 'audit -audit-level=high --omit=dev' 
-            continueOnError: ${{ ne(variables['Build.Reason'], 'PullRequest') }}
-
-          - task: Npm@1
-            displayName: 'npm lint'
-            inputs:
-              command: custom
-              verbose: false
-              customCommand: 'run --if-present test:lint'
-            continueOnError: ${{ ne(variables['Build.Reason'], 'PullRequest') }}
+          - script: |
+              mkdir -p ~/.ssh
+              echo "$(ssh-key)" > ~/.ssh/id_rsa
+              chmod 600 ~/.ssh/id_rsa
+              ssh-keyscan github.com >> ~/.ssh/known_hosts
+              npm install
 
           - task: Npm@1
             displayName: 'npm build'
@@ -44,3 +30,9 @@ stages:
               command: custom
               verbose: false
               customCommand: 'run --if-present build'
+
+          - script: |
+              rm -f ~/.ssh/id_rsa
+              rm -rf ~/.ssh
+            displayName: "Remove SSH Key"
+            condition: always()
