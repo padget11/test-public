@@ -1,0 +1,7 @@
+resources:
+  repositories:
+    - repository: test-public
+      name: padget11/test-public
+      endpoint: padget11
+      type: github
+      ref: refs/heads/main
