@@ -5,3 +5,42 @@ resources:
       endpoint: padget11
       type: github
       ref: refs/heads/main
+
+stages:
+  - stage: Build
+    pool:
+      name: Azure Pipelines
+    jobs:
+      - job: Build
+        steps:
+          - checkout: self
+            clean: true
+            fetchTags: false
+
+          - task: Npm@1
+            displayName: NPM Install
+            inputs:
+              verbose: false
+                    
+          - task: Npm@1
+            displayName: 'npm audit'
+            inputs:
+              command: custom
+              verbose: false
+              customCommand: 'audit -audit-level=high --omit=dev' 
+            continueOnError: ${{ ne(variables['Build.Reason'], 'PullRequest') }}
+
+          - task: Npm@1
+            displayName: 'npm lint'
+            inputs:
+              command: custom
+              verbose: false
+              customCommand: 'run --if-present test:lint'
+            continueOnError: ${{ ne(variables['Build.Reason'], 'PullRequest') }}
+
+          - task: Npm@1
+            displayName: 'npm build'
+            inputs:
+              command: custom
+              verbose: false
+              customCommand: 'run --if-present build'
