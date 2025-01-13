@@ -19,7 +19,7 @@ stages:
 
           - script: |
               mkdir -p ~/.ssh
-              # echo "$(ssh-key)" > ~/.ssh/id_rsa
+              echo "$(SSH-KEY)" > ~/.ssh/id_rsa
               # chmod 600 ~/.ssh/id_rsa
               # ssh-keyscan github.com >> ~/.ssh/known_hosts
               # npm install
