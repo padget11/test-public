@@ -18,21 +18,40 @@ stages:
             fetchTags: false
 
           - script: |
-              mkdir -p ~/.ssh
-              echo "$(SSH-KEY)" > ~/.ssh/id_rsa
-              chmod 600 ~/.ssh/id_rsa
-              ssh-keyscan github.com >> ~/.ssh/known_hosts
-              npm install
-
-          - task: Npm@1
-            displayName: 'npm build'
-            inputs:
-              command: custom
-              verbose: false
-              customCommand: 'run --if-present build'
+              node generate-token.js
+            displayName: "Generate Installation Token"
+            env:
+              GITHUB_APP_PRIVATE_KEY: $(GITHUB_APP_PRIVATE_KEY) # Secret: Private Key
+              APP_ID: $(APP_ID) # Secret: GitHub App ID
+              INSTALLATION_ID: $(INSTALLATION_ID) # Secret: GitHub Installation ID
 
           - script: |
-              rm -f ~/.ssh/id_rsa
-              rm -rf ~/.ssh
-            displayName: "Remove SSH Key"
+              export GITHUB_TOKEN=$(cat token.txt)
+              git config url."https://${GITHUB_TOKEN}@github.com/".insteadOf "https://github.com/"
+              npm install
+            displayName: "Authenticate and Install Dependencies"
+
+          - script: |
+              rm -f token.txt
+            displayName: "Clean Up Temporary Files"
             condition: always()
+
+          # - script: |
+          #     mkdir -p ~/.ssh
+          #     echo "$(SSH-KEY)" > ~/.ssh/id_rsa
+          #     chmod 600 ~/.ssh/id_rsa
+          #     ssh-keyscan github.com >> ~/.ssh/known_hosts
+          #     npm install
+
+          # - task: Npm@1
+          #   displayName: 'npm build'
+          #   inputs:
+          #     command: custom
+          #     verbose: false
+          #     customCommand: 'run --if-present build'
+
+          # - script: |
+          #     rm -f ~/.ssh/id_rsa
+          #     rm -rf ~/.ssh
+          #   displayName: "Remove SSH Key"
+          #   condition: always()
