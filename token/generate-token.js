@@ -1,6 +1,6 @@
+const jwt = import('jsonwebtoken');
 import * as fetch from 'node-fetch';
-import * as jwt from 'jsonwebtoken';
-import * as fs from 'js'
+const fs = require('fs');
  
 // Get the private key, App ID, and Installation ID from environment variables
 const privateKey = process.env.GITHUB_APP_PRIVATE_KEY;
