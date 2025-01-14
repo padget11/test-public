@@ -18,7 +18,9 @@ stages:
             fetchTags: false
 
           - script: |
-              npm install
+              npm install fs
+              npm install jsonwebtoken
+              npm install node-fetch@^2.6.6
               node generate-token.js
             displayName: "Generate Installation Token"
             workingDirectory: token

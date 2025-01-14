@@ -1,5 +1,5 @@
-const jwt = import('jsonwebtoken');
-import * as fetch from 'node-fetch';
+const jwt = require('jsonwebtoken');
+const fetch = require('node-fetch')
 const fs = require('fs');
  
 // Get the private key, App ID, and Installation ID from environment variables
