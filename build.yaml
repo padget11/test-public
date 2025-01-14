@@ -31,6 +31,7 @@ stages:
 
           - script: |
               export GITHUB_TOKEN=$(cat ../token/token.txt)
+              echo ${GITHUB_TOKEN}
               git config url."https://${GITHUB_TOKEN}@github.com/".insteadOf "https://github.com/"
               npm install
             displayName: "Authenticate and Install Dependencies"
