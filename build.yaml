@@ -16,9 +16,6 @@ stages:
           - checkout: self
             clean: true
             fetchTags: false
-          
-          - script: |
-              npm install jsonwebtoken
 
           # - script: |
           #     npm install jsonwebtoken
@@ -56,8 +53,8 @@ stages:
           #     verbose: false
           #     customCommand: 'run --if-present build'
 
-          # - script: |
-          #     rm -f ~/.ssh/id_rsa
-          #     rm -rf ~/.ssh
-          #   displayName: "Remove SSH Key"
-          #   condition: always()
+          - script: |
+              rm -f ~/.ssh/id_rsa
+              rm -rf ~/.ssh
+            displayName: "Remove SSH Key"
+            condition: always()
