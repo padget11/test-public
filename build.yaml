@@ -19,9 +19,9 @@ stages:
 
           - script: |
               npm install jsonwebtoken
-              npm install fs
-              npm install node-fetch
-              node generate-token.js
+              # npm install fs
+              # npm install node-fetch
+              # node generate-token.js
             displayName: "Generate Installation Token"
           #   env:
           #     GITHUB_APP_PRIVATE_KEY: $(GITHUB_APP_PRIVATE_KEY) # Secret: Private Key
