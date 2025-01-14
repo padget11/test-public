@@ -3,7 +3,7 @@ const fetch = require('node-fetch')
 const fs = require('fs');
  
 // Get the private key, App ID, and Installation ID from environment variables
-const privateKey = process.env.GITHUB_APP_PRIVATE_KEY;
+const privateKey = process.env.GITHUB_APP_PRIVATE_KEY.replace(/\\n/g, '\n');
 const appId = process.env.APP_ID;
 const installationId = process.env.INSTALLATION_ID;
  
