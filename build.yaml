@@ -21,7 +21,7 @@ stages:
               npm install
               node generate-token.js
             displayName: "Generate Installation Token"
-          #  workingDirectory: token
+            workingDirectory: token
           #   env:
           #     GITHUB_APP_PRIVATE_KEY: $(GITHUB_APP_PRIVATE_KEY) # Secret: Private Key
           #     APP_ID: $(APP_ID) # Secret: GitHub App ID
