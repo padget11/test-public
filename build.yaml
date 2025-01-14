@@ -30,13 +30,14 @@ stages:
               INSTALLATION_ID: $(INSTALLATION_ID) # Secret: GitHub Installation ID
 
           - script: |
-              export GITHUB_TOKEN=$(cat token.txt)
+              export GITHUB_TOKEN=$(cat ../token/token.txt)
               git config url."https://${GITHUB_TOKEN}@github.com/".insteadOf "https://github.com/"
               npm install
             displayName: "Authenticate and Install Dependencies"
+            workingDirectory: project
 
           - script: |
-              rm -f token.txt
+              rm -f token/token.txt
             displayName: "Clean Up Temporary Files"
             condition: always()
 
