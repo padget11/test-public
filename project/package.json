@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "dependencies": {
-    "test-private": "git+https://github.com/padget11/test-private.git"
+    "test-private": "github:padget11/test-private"
   },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
