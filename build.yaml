@@ -24,21 +24,21 @@ stages:
               node generate-token.js
             displayName: "Generate Installation Token"
             workingDirectory: token
-          #   env:
-          #     GITHUB_APP_PRIVATE_KEY: $(GITHUB_APP_PRIVATE_KEY) # Secret: Private Key
-          #     APP_ID: $(APP_ID) # Secret: GitHub App ID
-          #     INSTALLATION_ID: $(INSTALLATION_ID) # Secret: GitHub Installation ID
+            env:
+              GITHUB_APP_PRIVATE_KEY: $(GITHUB_APP_PRIVATE_KEY) # Secret: Private Key
+              APP_ID: $(APP_ID) # Secret: GitHub App ID
+              INSTALLATION_ID: $(INSTALLATION_ID) # Secret: GitHub Installation ID
 
-          # - script: |
-          #     export GITHUB_TOKEN=$(cat token.txt)
-          #     git config url."https://${GITHUB_TOKEN}@github.com/".insteadOf "https://github.com/"
-          #     npm install
-          #   displayName: "Authenticate and Install Dependencies"
+          - script: |
+              export GITHUB_TOKEN=$(cat token.txt)
+              git config url."https://${GITHUB_TOKEN}@github.com/".insteadOf "https://github.com/"
+              npm install
+            displayName: "Authenticate and Install Dependencies"
 
-          # - script: |
-          #     rm -f token.txt
-          #   displayName: "Clean Up Temporary Files"
-          #   condition: always()
+          - script: |
+              rm -f token.txt
+            displayName: "Clean Up Temporary Files"
+            condition: always()
 
           # - script: |
           #     mkdir -p ~/.ssh
