@@ -22,7 +22,7 @@ stages:
               knownHostsEntry: 'github.com'
               sshKeySecureFile: 'ssh-private-key'
               addEntryToConfig: true
-              configHostsAlias: 'SSH'
+              configHostAlias: 'SSH'
               configHostname: 'github.com'
           
           - script: |
